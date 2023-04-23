@@ -36,12 +36,6 @@ const checkerCategory = (argCategoryName: string) => {
   })
 }
 
-const newCategory = {
-  id: 2,
-  categoryName: 'Work',
-  isUsed: true,
-  todoList: []
-}
 const onSubmitHandler = () => {
   if (inputRef.value === '') {
     return
@@ -130,7 +124,7 @@ const onDeleteClickHandler = (argCategory: categoryType) => {
               autoComplete="off"
               placeholder="Create new category..."
               class="line-clamp-3 w-full text-sm outline-0 placeholder:text-sm placeholder:font-normal"
-              v-model="inputRef"
+              v-model.trim="inputRef"
             />
           </form>
         </div>
