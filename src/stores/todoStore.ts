@@ -50,6 +50,58 @@ export const useTodoStore = defineStore('todoStore', {
         }
       })
       localStorage.setItem('todo-data', JSON.stringify(this.categoryList))
+    },
+    addList(argTodoList: any) {
+      this.categoryList = this.categoryList.map((item: any) => {
+        if (item.isUsed) {
+          return {
+            id: item.id,
+            categoryName: item.categoryName,
+            isUsed: true,
+            todoList: [...item.todoList, argTodoList]
+          }
+        }
+        return item
+      })
+      localStorage.setItem('todo-data', JSON.stringify(this.categoryList))
+    },
+    removeList(argTodoList: any) {
+      this.categoryList = this.categoryList.map((item: any) => {
+        if (item.isUsed === true) {
+          return {
+            id: item.id,
+            categoryName: item.categoryName,
+            isUsed: item.isUsed,
+            todoList: item.todoList.filter((item: any) => {
+              return item.id !== argTodoList.id
+            })
+          }
+        }
+        return item
+      })
+      localStorage.setItem('todo-data', JSON.stringify(this.categoryList))
+    },
+    changeIsChecked(argTodoList: any) {
+      this.categoryList = this.categoryList.map((item: any) => {
+        if (item.isUsed === true) {
+          return {
+            id: item.id,
+            categoryName: item.categoryName,
+            isUsed: item.isUsed,
+            todoList: item.todoList.map((item: any) => {
+              if (item.id === argTodoList.id) {
+                return {
+                  id: item.id,
+                  isChecked: !item.isChecked,
+                  list: item.list
+                }
+              } else return item
+            })
+          }
+        }
+        return item
+      })
+      localStorage.setItem('todo-data', JSON.stringify(this.categoryList))
     }
   }
 })

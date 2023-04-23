@@ -4,6 +4,7 @@ import { format } from 'date-fns'
 import { storeToRefs } from 'pinia'
 import { useTodoStore } from './stores/todoStore'
 import SideBar from './components/sidebar/SideBar.vue'
+import TodoList from './components/todoList/TodoList.vue'
 
 // states
 const isModalOpen = ref(false)
@@ -45,7 +46,7 @@ const { categoryList, name } = storeToRefs(todoStore)
             </div>
           </div>
         </div>
-        <!-- <TodoList /> -->
+        <TodoList />
       </div>
     </section>
   </main>
