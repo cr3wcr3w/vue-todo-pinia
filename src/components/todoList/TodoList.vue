@@ -5,6 +5,8 @@ import DOMPurify from 'dompurify'
 import _ from 'lodash'
 import { useTodoStore } from '../../stores/todoStore'
 
+type argType = { id: number; isChecked: boolean; list: string }
+
 const inputTodoRef = ref('')
 
 // store
@@ -37,7 +39,7 @@ const onSubmitHandler = () => {
   }
 
   const checkerList = (): boolean => {
-    return currentUsed.value.reverseList.some((item: any) => {
+    return currentUsed.value.reverseList.some((item: argType) => {
       return item.list === inputTodoRef.value
     })
   }
@@ -50,16 +52,15 @@ const onSubmitHandler = () => {
   if (inputTodoRef.value) {
     inputTodoRef.value = ''
   }
-  console.log(categoryList.value)
 }
 
 // removing a list
-function removeTodoList(argTodoList: any) {
+function removeTodoList(argTodoList: argType) {
   todoStore.removeList(argTodoList)
 }
 
 // changing the isChecked to true or false
-function changeChecked(argList: any) {
+function changeChecked(argList: argType) {
   todoStore.changeIsChecked(argList)
 }
 </script>

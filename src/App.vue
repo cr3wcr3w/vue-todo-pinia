@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+// import { ref } from 'vue'
 import { format } from 'date-fns'
 import { storeToRefs } from 'pinia'
 import { useTodoStore } from './stores/todoStore'
@@ -7,7 +7,7 @@ import SideBar from './components/sidebar/SideBar.vue'
 import TodoList from './components/todoList/TodoList.vue'
 
 // states
-const isModalOpen = ref(false)
+// const isModalOpen = ref(false)
 const date = new Date()
 const day = format(date, 'iiii')
 const month = format(date, 'MMM')
@@ -23,7 +23,7 @@ const periodFN = () => {
 
 // store
 const todoStore = useTodoStore()
-const { categoryList, name } = storeToRefs(todoStore)
+const { name } = storeToRefs(todoStore)
 </script>
 
 <template>

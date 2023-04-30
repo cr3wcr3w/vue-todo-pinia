@@ -12,7 +12,6 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
-    "@ant-design/icons": "^5.0.1",
     "date-fns": "^2.29.3",
     "dompurify": "^3.0.2",
     "lodash": "^4.17.21",
@@ -23,6 +22,7 @@
     "@rushstack/eslint-patch": "^1.2.0",
     "@types/date-fns": "^2.6.0",
     "@types/dompurify": "^3.0.2",
+    "@types/lodash": "^4.14.194",
     "@types/node": "^18.14.2",
     "@vitejs/plugin-vue": "^4.0.0",
     "@vue/eslint-config-prettier": "^7.1.0",
