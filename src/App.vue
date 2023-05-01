@@ -1,13 +1,14 @@
 <script setup lang="ts">
-// import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
 import { format } from 'date-fns'
 import { storeToRefs } from 'pinia'
 import { useTodoStore } from './stores/todoStore'
 import SideBar from './components/sidebar/SideBar.vue'
 import TodoList from './components/todoList/TodoList.vue'
+import Modal from './components/modal/Modal.vue'
 
 // states
-// const isModalOpen = ref(false)
+const isModalOpen = ref(true)
 const date = new Date()
 const day = format(date, 'iiii')
 const month = format(date, 'MMM')
@@ -24,10 +25,42 @@ const periodFN = () => {
 // store
 const todoStore = useTodoStore()
 const { name } = storeToRefs(todoStore)
+
+const toggleModalToClose = () => {
+  isModalOpen.value = false
+}
+
+// vue said that modal rendered twice
+// const toggleModalToClose = ref(() => {
+//   isModalOpen.value = false
+// })
+
+// onMounted(() => {
+//   const todoDataLocal = localStorage.getItem('todo-data')
+//   const todoNameLocal = localStorage.getItem('todo-name')
+
+//   if (!todoNameLocal) {
+//     isModalOpen.value = true
+//     todoStore.addName('Human')
+//   }
+//   if (todoNameLocal) {
+//     todoStore.addName(JSON.parse(todoNameLocal))
+
+//     if (JSON.parse(todoNameLocal) === 'Human') {
+//       isModalOpen.value = true
+//     }
+//   }
+//   if (todoDataLocal) {
+//     todoStore.allCategory(JSON.parse(todoDataLocal))
+//   }
+// })
 </script>
 
 <template>
-  <main className="relative flex h-screen w-screen gap-7 bg-[#EAEDEE] p-10">
+  <Modal v-if="isModalOpen === true" :toggle-modal-to-close="toggleModalToClose" />
+  <!-- <Modal v-if="isModalOpen" :toggleModalToClose="toggleModalToClose" /> -->
+
+  <main class="relative flex h-screen w-screen gap-7 bg-[#EAEDEE] p-10">
     <SideBar />
 
     <section class="flex h-[90vh] w-full flex-col items-center gap-7 lg:w-[66%]">
@@ -40,7 +73,7 @@ const { name } = storeToRefs(todoStore)
               >
                 Good {{ periodFN() }} {{ name }}
               </h1>
-              <p className="text-base	font-normal leading-6 text-[#6D6D6D] md:text-base lg:text-2xl">
+              <p class="text-base font-normal leading-6 text-[#6D6D6D] md:text-base lg:text-2xl">
                 It&apos;s {{ day }}, {{ month }} {{ dayNum }}
               </p>
             </div>
