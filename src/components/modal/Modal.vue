@@ -1,27 +1,16 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <!-- eslint-disable-next-line vue/multi-word-component-names -->
 <script setup lang="ts">
-import { defineProps, ref } from 'vue'
+import { ref } from 'vue'
 import DOMPurify from 'dompurify'
 import { useTodoStore } from '../../stores/todoStore'
 
 // props
-// const props = defineProps({
-//   toggleModalToClose: {
-//     type: Function,
-//     default: () => {
-//       console.log('Default function')
-//     }
-//   }
-// })
-// const props = defineProps({
-//   toggleModalToClose: {
-//     type: Function,
-//     default: () => {
-//       console.log('Default function')
-//     }
-//   }
-// })
+const emit = defineEmits(['toggleModalToClose'])
+
+const clickToggleModalToClose = () => {
+  emit('toggleModalToClose')
+}
 
 // states
 const modalCurrent = ref(1)
@@ -32,7 +21,7 @@ const todoStore = useTodoStore()
 
 const continueHandler = () => {
   if (modalCurrent.value === 3) {
-    // props.toggleModalToClose()
+    clickToggleModalToClose()
     return
   }
   modalCurrent.value = modalCurrent.value + 1
@@ -58,8 +47,6 @@ const addNameHandler = () => {
 const firebaseHandler = () => {
   console.log('not yet implemented')
 }
-
-console.log(defineProps)
 </script>
 
 <template>

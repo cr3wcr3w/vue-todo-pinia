@@ -8,7 +8,7 @@ import TodoList from './components/todoList/TodoList.vue'
 import Modal from './components/modal/Modal.vue'
 
 // states
-const isModalOpen = ref(true)
+const isModalOpen = ref(false)
 const date = new Date()
 const day = format(date, 'iiii')
 const month = format(date, 'MMM')
@@ -30,35 +30,29 @@ const toggleModalToClose = () => {
   isModalOpen.value = false
 }
 
-// vue said that modal rendered twice
-// const toggleModalToClose = ref(() => {
-//   isModalOpen.value = false
-// })
+onMounted(() => {
+  const todoDataLocal = localStorage.getItem('todo-data')
+  const todoNameLocal = localStorage.getItem('todo-name')
 
-// onMounted(() => {
-//   const todoDataLocal = localStorage.getItem('todo-data')
-//   const todoNameLocal = localStorage.getItem('todo-name')
+  if (!todoNameLocal) {
+    isModalOpen.value = true
+    todoStore.addName('Human')
+  }
+  if (todoNameLocal) {
+    todoStore.addName(JSON.parse(todoNameLocal))
 
-//   if (!todoNameLocal) {
-//     isModalOpen.value = true
-//     todoStore.addName('Human')
-//   }
-//   if (todoNameLocal) {
-//     todoStore.addName(JSON.parse(todoNameLocal))
-
-//     if (JSON.parse(todoNameLocal) === 'Human') {
-//       isModalOpen.value = true
-//     }
-//   }
-//   if (todoDataLocal) {
-//     todoStore.allCategory(JSON.parse(todoDataLocal))
-//   }
-// })
+    if (JSON.parse(todoNameLocal) === 'Human') {
+      isModalOpen.value = true
+    }
+  }
+  if (todoDataLocal) {
+    todoStore.allCategory(JSON.parse(todoDataLocal))
+  }
+})
 </script>
 
 <template>
-  <Modal v-if="isModalOpen === true" :toggle-modal-to-close="toggleModalToClose" />
-  <!-- <Modal v-if="isModalOpen" :toggleModalToClose="toggleModalToClose" /> -->
+  <Modal v-if="isModalOpen === true" @toggleModalToClose="toggleModalToClose" />
 
   <main class="relative flex h-screen w-screen gap-7 bg-[#EAEDEE] p-10">
     <SideBar />
