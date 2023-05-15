@@ -4,6 +4,8 @@
 import { ref } from 'vue'
 import DOMPurify from 'dompurify'
 import { useTodoStore } from '../../stores/todoStore'
+import { auth, googleProvider } from '../../config/firebase'
+import { signInWithPopup, signOut } from 'firebase/auth'
 
 // props
 const emit = defineEmits(['toggleModalToClose'])
@@ -44,8 +46,21 @@ const addNameHandler = () => {
   }
 }
 
-const firebaseHandler = () => {
-  console.log('not yet implemented')
+const firebaseHandler = async () => {
+  console.log('hi')
+  try {
+    await signInWithPopup(auth, googleProvider)
+    // console.log(auth?.currentUser?.displayName);
+    if (auth.currentUser) {
+      todoStore.addName(auth.currentUser.displayName!.split(' ')[0])
+    }
+
+    // temp, we just need to get the name of the user
+    await signOut(auth)
+    continueHandler()
+  } catch (err) {
+    console.error(err)
+  }
 }
 </script>
 
