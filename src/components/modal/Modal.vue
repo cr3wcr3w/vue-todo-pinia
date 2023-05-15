@@ -47,7 +47,6 @@ const addNameHandler = () => {
 }
 
 const firebaseHandler = async () => {
-  console.log('hi')
   try {
     await signInWithPopup(auth, googleProvider)
     // console.log(auth?.currentUser?.displayName);
